@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    {% for player in team %}
+    <li>{{player['first_name']}} {{player['last_name']}} {{player['jersey']}}</li>
+    {% endfor %}
+  </ul>
+
+</body>
+</html>
