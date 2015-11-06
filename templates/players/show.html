@@ -5,7 +5,11 @@
   <title>Document</title>
 </head>
 <body>
-  I am a single player, eventually
+  <!-- player -->
+  <p> {{player['first_name']}} {{player['last_name']}} {{player['jersey']}}
+    <form action = '/players/{{player['id']}}/edit' method = 'GET'>
+      <button>Update player_id {{player['id']}}</button>
+    </form>
 
 </body>
 </html>
