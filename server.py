@@ -12,10 +12,13 @@ team = [
 def index():
     return render_template('/index.html')
 
-@app.route('/players') #show us all the players (index)
+@app.route('/players', methods = ['GET']) #show us all the players (index)
 def index_players():
     return render_template('/players/index.html',team = team)
-
+@app.route('/players/<int:player_id>', methods = ['GET']) #this will get a player from our player list and show him by ID.
+def show(player_id):
+    print player_id
+    return render_template('/players/show.html')
 
 
 if __name__ == '__main__':
