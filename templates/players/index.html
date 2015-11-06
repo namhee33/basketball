@@ -7,7 +7,7 @@
 <body>
   <ul>
     {% for player in team %}
-    <li>{{player['first_name']}} {{player['last_name']}} {{player['jersey']}}</li>
+    <li>{{player['first_name']}} {{player['last_name']}} {{player['jersey']}} <a href="/players/{{player['id']}}">Show User Info</a></li>
     {% endfor %}
   </ul>
 

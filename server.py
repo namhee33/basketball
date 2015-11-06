@@ -13,7 +13,13 @@ def find_player(id):
     for player in session['team']:
         if player['id'] == id:
             return player
-    return false
+    return False
+
+def find_index(id):
+    for index, player in enumerate(session['team']):
+        if player['id'] == id:
+            return index
+    return False
 
 @app.route('/')
 def index():
@@ -26,6 +32,22 @@ def index():
 @app.route('/players', methods = ['GET']) #show us all the players (index)
 def index_players():
     return render_template('/players/index.html',team = session['team'])
+
+@app.route('/add_request', methods = ['GET'])
+def add_req():
+    return render_template('/players/add.html', team = session['team'])
+
+@app.route('/players/add_player', methods = ['POST'])
+def add_user():
+   
+    pid = int(request.form['id'])
+    fname = request.form['first_name']
+    lname = request.form['last_name']
+    jersey = request.form['jersey'] 
+   
+    session['team'].append({'id': pid, 'first_name':fname, 'last_name':lname, 'jersey':jersey})
+    print 'added: ', session['team']
+    return redirect('/')
 
 @app.route('/players/<int:player_id>', methods = ['GET']) #this will get a player from our player list and show him by ID.
 def show(player_id):
@@ -41,6 +63,16 @@ def edit(player_id):
     player = find_player(player_id)
     if player:
          return render_template('/players/edit.html', player = player)
+    return redirect('/players/'+str(player_id))
+
+@app.route('/players/<int:player_id>/delete')
+#this shows a page allowing us to edit
+def delete_player(player_id):
+    player = find_player(player_id)
+    i = find_index(player_id)
+    if i:
+        session['team'].pop(i)
+        return render_template('/players/delete.html', player = player)
     return redirect('/players/'+str(player_id))
 
 @app.route('/players/<int:player_id>', methods = ['POST'])
@@ -72,7 +104,9 @@ def update(player_id):
         print "no team yet"
     return redirect('/')
 
-
-
+@app.route('/reset')
+def reset_players():
+    session.pop('team')
+    return redirect('/')
 if __name__ == '__main__':
     app.run(debug=True)

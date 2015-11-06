@@ -8,7 +8,10 @@
   <!-- player -->
   <p> {{player['first_name']}} {{player['last_name']}} {{player['jersey']}}
     <form action = '/players/{{player['id']}}/edit' method = 'GET'>
-      <button>Update player_id {{player['id']}}</button>
+      <button>Update player {{player['id']}}</button>
+    </form>
+    <form action = '/players/{{player['id']}}/delete' method = 'GET'>
+      <button>Delete player {{player['id']}}</button>
     </form>
 
 </body>
